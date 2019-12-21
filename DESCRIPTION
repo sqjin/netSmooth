@@ -18,15 +18,10 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 3.5),
-    scater (>= 1.15.11),
-    clusterExperiment (>= 2.1.6)
+    R (>= 3.5)
 Imports:
-    entropy,
-    SummarizedExperiment,
     SingleCellExperiment,
     Matrix,
-    cluster,
     data.table,
     stats,
     methods,
@@ -38,12 +33,8 @@ Suggests: knitr,
     biomaRt,
     igraph,
     STRINGdb,
-    NMI,
-    pheatmap,
     ggplot2,
     BiocStyle, 
-    rmarkdown,
-    BiocParallel,
-    uwot
+    rmarkdown
 VignetteBuilder: knitr
 RoxygenNote: 7.0.2
