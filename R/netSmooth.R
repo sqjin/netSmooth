@@ -12,7 +12,6 @@ setGeneric(
 #' @param normalizeAdjMatrix    how to normalize the adjacency matrix
 #'                              possible values are 'rows' (in-degree)
 #'                              and 'columns' (out-degree)
-#' @param is.counts    logical: is the assay count data
 #' @param filepath      String: Path to location where hdf5 output file is supposed to be saved.
 #'                      Will be ignored when regular matrices or SummarizedExperiment are
 #'                      used as input.
@@ -32,8 +31,7 @@ setGeneric(
 setMethod("netSmooth",
     signature(x='matrix'),
     function(x, adjMatrix, alpha=0.5,
-        normalizeAdjMatrix=c('rows','columns'),
-        is.counts=TRUE) {
+        normalizeAdjMatrix=c('rows','columns')) {
         normalizeAdjMatrix <- match.arg(normalizeAdjMatrix)
 
         stopifnot(is(adjMatrix, 'matrix') || is(adjMatrix, 'sparseMatrix'))
@@ -68,8 +66,7 @@ setMethod("netSmooth",
 setMethod("netSmooth",
           signature(x='Matrix'),
           function(x, adjMatrix, alpha=0.5,
-                   normalizeAdjMatrix=c('rows','columns'),
-                   is.counts=TRUE) {
+                   normalizeAdjMatrix=c('rows','columns')) {
             normalizeAdjMatrix <- match.arg(normalizeAdjMatrix)
 
             stopifnot(is(adjMatrix, 'matrix') || is(adjMatrix, 'sparseMatrix'))
@@ -88,4 +85,37 @@ setMethod("netSmooth",
             return(x.smoothed)
           }
 )
+
+#' @rdname netSmooth
+#' @export
+setMethod("netSmooth",
+          signature(x='DelayedMatrix'),
+
+          function(x, adjMatrix, alpha='auto',
+                   normalizeAdjMatrix=c('rows','columns'),
+                   filepath = NULL)
+          {
+
+            normalizeAdjMatrix <- match.arg(normalizeAdjMatrix)
+
+            stopifnot(is(adjMatrix, 'matrix') || is(adjMatrix, 'sparseMatrix'))
+            stopifnot((is.numeric(alpha) && (alpha > 0 && alpha < 1)))
+            if(sum(Matrix::rowSums(adjMatrix)==0)>0) stop("PPI cannot have zero rows/columns")
+            if(sum(Matrix::colSums(adjMatrix)==0)>0) stop("PPI cannot have zero rows/columns")
+
+
+            if(is.numeric(alpha)) {
+              message("Using given alpha: ", alpha,"\n")
+              if(alpha<0 | alpha > 1) {
+                stop('alpha must be between 0 and 1')
+              }
+
+              x.smoothed <- smoothAndRecombine(x, adjMatrix, alpha,
+                                               normalizeAdjMatrix=normalizeAdjMatrix,
+                                               filepath=filepath)
+            } else stop("unsupported alpha value: ", class(alpha))
+
+
+            return(x.smoothed)
+          })
 
