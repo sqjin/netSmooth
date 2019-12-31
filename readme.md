@@ -1,5 +1,5 @@
 
-*_netSmoothLite_: A lite version of _netSmooth_, with only the basic functions! _netSmooth_ is a network smoothing based method for single cell RNA-seq data imputation** 
+# _netSmoothLite_: A lite version of _netSmooth_, with only the basic functions! _netSmooth_ is a network smoothing based method for single cell RNA-seq data imputation 
 
 -----
 _netSmooth_ is an R package for network smoothing of single cell RNA sequencing data. Using gene interaction networks such as protein-
