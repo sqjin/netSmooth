@@ -13,6 +13,7 @@ optimized using a robust clustering approach.
 
 For a detailed exposition, check out [the published paper on F1000Research](https://f1000research.com/articles/7-8/v2).
 
+
 ### Installation of this lite version
 
 	devtools::install_github("sqjin/netSmooth")
