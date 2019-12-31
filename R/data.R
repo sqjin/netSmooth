@@ -1,18 +1,7 @@
-#' Human Protein-Protein interaction graph
-#'
-#' An adjacency matrix of the 10 percent highest confidence interactions
-#' between human proteins on STRINGdb.
-#'
-#' See the script in `system.file(package="netSmooth", "data-raw", "make_ppi_from_string.R")`
-#' for full details of how this object was made.
-#'
-#' @format A square matrix where A_{ij}=1 if gene i interacts with gene j
-#' @source \url{http://www.string-db.org/}
-"human.ppi"
 
 #' Mouse Protein-Protein interaction graph
 #'
-#' An adjacency matrix of the 10 percent highest confidence interactions
+#' An adjacency matrix of the high confidence known experimental interactions 
 #' between mouse proteins on STRINGdb.
 #'
 #' See the script in `system.file(package="netSmooth", "data-raw", "make_ppi_from_string.R")`
@@ -22,15 +11,14 @@
 #' @source \url{http://www.string-db.org/}
 "mouse.ppi"
 
-#' A small single cell RNA-seq dataset for use in examples.
+#' Human Protein-Protein interaction graph
 #'
-#' Contains scRNAseq profiles of human blastomeres.
+#' An adjacency matrix of the high confidence known experimental interactions
+#' between human proteins on STRINGdb.
 #'
-#' @format SingleCellExperiment
-#' @source \url{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE44183}
-"smallscRNAseq"
-
-#' A small human Protein-Protein interaction graph for use in examples.
+#' See the script in `system.file(package="netSmooth", "data-raw", "make_ppi_from_string.R")`
+#' for full details of how this object was made.
 #'
-#' Contains a synthetic PPI of human genes.
-"smallPPI"
+#' @format A square matrix where A_{ij}=1 if gene i interacts with gene j
+#' @source \url{http://www.string-db.org/}
+"human.ppi"

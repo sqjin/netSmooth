@@ -6,7 +6,7 @@ setGeneric(
 )
 
 #' Perform network smoothing of gene expression or other omics data
-#' @param x    matrix or SummarizedExperiment
+#' @param x    matrix or single cell Experiment
 #' @param adjMatrix    adjacency matrix of gene network to use
 #' @param alpha    numeric in [0,1]
 #' @param normalizeAdjMatrix    how to normalize the adjacency matrix
@@ -31,7 +31,8 @@ setGeneric(
 setMethod("netSmooth",
     signature(x='matrix'),
     function(x, adjMatrix, alpha=0.5,
-        normalizeAdjMatrix=c('rows','columns')) {
+        normalizeAdjMatrix=c('rows','columns')
+        ) {
         normalizeAdjMatrix <- match.arg(normalizeAdjMatrix)
 
         stopifnot(is(adjMatrix, 'matrix') || is(adjMatrix, 'sparseMatrix'))
@@ -40,7 +41,6 @@ setMethod("netSmooth",
         if(sum(Matrix::colSums(adjMatrix)==0)>0) stop("PPI cannot have zero rows/columns")
 
         if(is.numeric(alpha)) {
-            message("Using given alpha: ", alpha,"\n")
             if(alpha<0 | alpha > 1) {
                 stop('alpha must be between 0 and 1')
             }
@@ -50,14 +50,22 @@ setMethod("netSmooth",
         return(x.smoothed)
     }
 )
-
+#' @param x    single cell Experiment
+#' @param adjMatrix    adjacency matrix of gene network to use
+#' @param alpha    numeric in [0,1]
+#' @param normalizeAdjMatrix    how to normalize the adjacency matrix
+#'                              possible values are 'rows' (in-degree)
+#'                              and 'columns' (out-degree)
 #' @rdname netSmooth
 #' @export
 setMethod("netSmooth",
           signature(x='SingleCellExperiment'),
-          function(x, ...) {
+          function(x, adjMatrix, alpha=0.5,
+                   normalizeAdjMatrix=c('rows','columns')) {
             matrixdata <- assay(x)
-            ret <- netSmooth(matrixdata, ...)
+            normalizeAdjMatrix <- match.arg(normalizeAdjMatrix)
+            ret <- netSmooth(matrixdata, adjMatrix, alpha,
+                             normalizeAdjMatrix)
             return(SingleCellExperiment(assays = list(counts = ret)))
           })
 
@@ -75,7 +83,6 @@ setMethod("netSmooth",
             if(sum(Matrix::colSums(adjMatrix)==0)>0) stop("PPI cannot have zero rows/columns")
 
             if(is.numeric(alpha)) {
-              message("Using given alpha: ", alpha,"\n")
               if(alpha<0 | alpha > 1) {
                 stop('alpha must be between 0 and 1')
               }
@@ -91,7 +98,7 @@ setMethod("netSmooth",
 setMethod("netSmooth",
           signature(x='DelayedMatrix'),
 
-          function(x, adjMatrix, alpha='auto',
+          function(x, adjMatrix, alpha=0.5,
                    normalizeAdjMatrix=c('rows','columns'),
                    filepath = NULL)
           {
@@ -105,7 +112,6 @@ setMethod("netSmooth",
 
 
             if(is.numeric(alpha)) {
-              message("Using given alpha: ", alpha,"\n")
               if(alpha<0 | alpha > 1) {
                 stop('alpha must be between 0 and 1')
               }

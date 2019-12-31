@@ -3,6 +3,7 @@
 #' @keywords internal
 #' @return kmeans or PAM cluster assignments
 #' @importFrom stats kmeans
+#' @export
 clusterOne <- function(x, algorithm=c('kmeans', 'pam'), k=5) {
     algorithm <- match.arg(algorithm)
     if(algorithm == 'kmeans') yhat <- kmeans(x, k)$cluster

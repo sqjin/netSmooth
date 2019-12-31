@@ -10,6 +10,7 @@
 #' @param max.iter    the maximum number of iterations before terminating
 #' @return network-smoothed gene expression
 #' @keywords internal
+#' @export
 randomWalkByIterations <- function(f0, adjMatrix, alpha,
     normalizeAjdMatrix=c('rows','columns'),
     tol=1e-6,

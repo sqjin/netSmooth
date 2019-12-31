@@ -5,6 +5,7 @@
 #' @usage l1NormalizeColumns(A)
 #' @return column-normalized sparse matrix object
 #' @keywords internal
+#' @export
 l1NormalizeColumns <- function(A) {
     return(Matrix::t(Matrix::t(A)/Matrix::colSums(A)))
 }

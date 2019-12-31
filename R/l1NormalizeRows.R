@@ -5,6 +5,7 @@
 #' @usage l1NormalizeRows(A)
 #' @return row-normalized sparse matrix object
 #' @keywords internal
+#' @export
 l1NormalizeRows <- function(A) {
     return(A/Matrix::rowSums(A))
 }

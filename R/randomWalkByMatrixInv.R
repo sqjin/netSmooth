@@ -33,6 +33,7 @@ setMethod("randomWalkByMatrixInv",
             return(K %*% f0)
             })
 
+
 setMethod("randomWalkByMatrixInv",
           signature(f0='Matrix'),
           function(f0, adjMatrix, alpha,
@@ -45,6 +46,7 @@ setMethod("randomWalkByMatrixInv",
             K <- (1 - alpha) * solve(eye - alpha * Anorm)
             return(K %*% f0)
           })
+
 
 setMethod("randomWalkByMatrixInv",
           signature(f0='DelayedMatrix'),

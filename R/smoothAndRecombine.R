@@ -53,6 +53,7 @@ setMethod("smoothAndRecombine",
             return(gene_expression_smooth)
           })
 
+
 setMethod("smoothAndRecombine",
           signature(gene_expression='Matrix'),
           function(gene_expression, adj_matrix, alpha,
@@ -67,6 +68,7 @@ setMethod("smoothAndRecombine",
               gene_expression, gene_expression_in_A_space_smooth)
             return(gene_expression_smooth)
           })
+
 
 setMethod("smoothAndRecombine",
           signature(gene_expression='DelayedMatrix'),
