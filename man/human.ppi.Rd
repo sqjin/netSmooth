@@ -12,7 +12,7 @@
 human.ppi
 }
 \description{
-An adjacency matrix of the 10 percent highest confidence interactions
+An adjacency matrix of the high confidence known experimental interactions
 between human proteins on STRINGdb.
 }
 \details{

@@ -3,94 +3,35 @@
 \name{netSmooth,matrix-method}
 \alias{netSmooth,matrix-method}
 \alias{netSmooth}
-\alias{netSmooth,SummarizedExperiment-method}
 \alias{netSmooth,SingleCellExperiment-method}
 \alias{netSmooth,Matrix-method}
 \alias{netSmooth,DelayedMatrix-method}
 \title{Perform network smoothing of gene expression or other omics data}
 \usage{
-\S4method{netSmooth}{matrix}(
-  x,
-  adjMatrix,
-  alpha = "auto",
-  normalizeAdjMatrix = c("rows", "columns"),
-  autoAlphaMethod = c("robustness", "entropy"),
-  autoAlphaRange = 0.1 * (seq_len(9)),
-  autoAlphaDimReduceFlavor = "auto",
-  is.counts = TRUE,
-  bpparam = BiocParallel::SerialParam(),
-  ...
-)
+\S4method{netSmooth}{matrix}(x, adjMatrix, alpha = 0.5, normalizeAdjMatrix = c("rows", "columns"))
 
-\S4method{netSmooth}{SummarizedExperiment}(x, ...)
+\S4method{netSmooth}{SingleCellExperiment}(x, adjMatrix, alpha = 0.5, normalizeAdjMatrix = c("rows", "columns"))
 
-\S4method{netSmooth}{SingleCellExperiment}(x, ...)
-
-\S4method{netSmooth}{Matrix}(
-  x,
-  adjMatrix,
-  alpha = "auto",
-  normalizeAdjMatrix = c("rows", "columns"),
-  autoAlphaMethod = c("robustness", "entropy"),
-  autoAlphaRange = 0.1 * (seq_len(9)),
-  autoAlphaDimReduceFlavor = "auto",
-  is.counts = TRUE,
-  bpparam = BiocParallel::SerialParam(),
-  ...
-)
+\S4method{netSmooth}{Matrix}(x, adjMatrix, alpha = 0.5, normalizeAdjMatrix = c("rows", "columns"))
 
 \S4method{netSmooth}{DelayedMatrix}(
   x,
   adjMatrix,
-  alpha = "auto",
+  alpha = 0.5,
   normalizeAdjMatrix = c("rows", "columns"),
-  autoAlphaMethod = c("robustness", "entropy"),
-  autoAlphaRange = 0.1 * (seq_len(9)),
-  autoAlphaDimReduceFlavor = "auto",
-  is.counts = TRUE,
-  bpparam = BiocParallel::SerialParam(),
-  filepath = NULL,
-  ...
+  filepath = NULL
 )
 }
 \arguments{
-\item{x}{matrix or SummarizedExperiment}
+\item{x}{single cell Experiment}
 
 \item{adjMatrix}{adjacency matrix of gene network to use}
 
-\item{alpha}{numeric in [0,1] or 'audo'. if 'auto', the optimal
-value for alpha will be automatically chosen among the values
-specified in `autoAlphaRange`, using the strategy
-specified in `autoAlphaMethod`}
+\item{alpha}{numeric in [0,1]}
 
 \item{normalizeAdjMatrix}{how to normalize the adjacency matrix
 possible values are 'rows' (in-degree)
 and 'columns' (out-degree)}
-
-\item{autoAlphaMethod}{if 'robustness', pick alpha that gives the
-highest proportion of samples in robust clusters
-if 'entropy', pick alpha that gives highest
-Shannon entropy in 2D PCA embedding}
-
-\item{autoAlphaRange}{if `alpha='optimal'`, search these values
-for the best alpha}
-
-\item{autoAlphaDimReduceFlavor}{algorithm for dimensionality reduction
-that will be used to pick the optimal
-value for alpha. Either the 2D embedding
-to calculate the Shannon entropy for (if
-`autoAlphaMethod='entropy'`), or the
-dimensionality reduction algorithm to be
-used in robust clustering (if
-`autoAlphamethod='robustness'`)}
-
-\item{is.counts}{logical: is the assay count data}
-
-\item{bpparam}{instance of bpparam, for parallel computation with the
-`alpha='auto'` option. See the BiocParallel manual.}
-
-\item{...}{arguments passed on to `robustClusters` if using the robustness
-criterion for optimizing alpha}
 
 \item{filepath}{String: Path to location where hdf5 output file is supposed to be saved.
 Will be ignored when regular matrices or SummarizedExperiment are
