@@ -28,9 +28,9 @@ getPPIFromStringDB <- function(species) {
   # ninetyth.percentile <- 900
   #human_graph <- subgraph.edges(human_graph,E(human_graph)[combined_score >ninetyth.percentile])
   # Columns: protein1 protein2 neighborhood neighborhood_transferred fusion cooccurence homology coexpression coexpression_transferred experiments experiments_transferred database database_transferred textmining textmining_transferred combined_score
-  # human_graph <- subgraph.edges(human_graph,E(human_graph)[database > 700])
-   human_graph <- subgraph.edges(human_graph,E(human_graph)[experiments > 700])
-   #human_graph <- subgraph.edges(human_graph,E(human_graph)[combined_score > 700])
+  # human_graph <- subgraph.edges(human_graph,E(human_graph)[database >= 900])
+   human_graph <- subgraph.edges(human_graph,E(human_graph)[experiments >= 900]) # good choice
+   #human_graph <- subgraph.edges(human_graph,E(human_graph)[combined_score >= 700])
   
   adj_matrix <- as_adjacency_matrix(human_graph)
   
